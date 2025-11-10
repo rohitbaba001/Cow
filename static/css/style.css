@@ -39,6 +39,9 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .nav-header {
@@ -1140,6 +1143,12 @@ body {
     /* Navigation */
     .nav-container {
         padding: 0 1rem;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .nav-header {
+        width: 100%;
     }
 
     .nav-brand h2 {
