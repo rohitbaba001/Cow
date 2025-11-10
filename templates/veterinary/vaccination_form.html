@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h1>{% if language == 'mr' %}लसीकरण नोंदवा{% else %}Record Vaccination{% endif %}</h1>
+    </div>
+
+    <div class="form-container">
+        <form method="post" class="form">
+            {% csrf_token %}
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>{% if language == 'mr' %}गाय{% else %}Cow{% endif %} *</label>
+                    {{ form.cow }}
+                </div>
+                
+                <div class="form-group">
+                    <label>{% if language == 'mr' %}डॉक्टर{% else %}Administered By{% endif %} *</label>
+                    {{ form.administered_by }}
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>{% if language == 'mr' %}लसीचे नाव{% else %}Vaccine Name{% endif %} *</label>
+                    {{ form.vaccine_name }}
+                </div>
+                
+                <div class="form-group">
+                    <label>{% if language == 'mr' %}रोग प्रतिबंध{% else %}Disease Prevention{% endif %} *</label>
+                    {{ form.disease_prevention }}
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>{% if language == 'mr' %}लसीकरण तारीख{% else %}Vaccination Date{% endif %} *</label>
+                    {{ form.vaccination_date }}
+                </div>
+                
+                <div class="form-group">
+                    <label>{% if language == 'mr' %}पुढील देय तारीख{% else %}Next Due Date{% endif %}</label>
+                    {{ form.next_due_date }}
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>{% if language == 'mr' %}बॅच क्रमांक{% else %}Batch Number{% endif %}</label>
+                    {{ form.batch_number }}
+                </div>
+                
+                <div class="form-group">
+                    <label>{% if language == 'mr' %}डोस{% else %}Dosage{% endif %} *</label>
+                    {{ form.dosage }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>{% if language == 'mr' %}मार्ग{% else %}Route{% endif %} *</label>
+                {{ form.route }}
+                <small>{% if language == 'mr' %}उदा: त्वचेखालील, स्नायूमध्ये{% else %}e.g., Subcutaneous, Intramuscular{% endif %}</small>
+            </div>
+
+            <div class="form-group">
+                <label>{% if language == 'mr' %}टिपा{% else %}Notes{% endif %}</label>
+                {{ form.notes }}
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">
+                    {% if language == 'mr' %}जतन करा{% else %}Save Vaccination{% endif %}
+                </button>
+                <a href="{% url 'vaccination_list' %}" class="btn btn-secondary">
+                    {% if language == 'mr' %}रद्द करा{% else %}Cancel{% endif %}
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h1>{% if language == 'mr' %}औषध जोडा{% else %}Add Medicine{% endif %}</h1>
+    </div>
+
+    <div class="form-container">
+        <form method="post" class="form">
+            {% csrf_token %}
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>{% if language == 'mr' %}औषधाचे नाव{% else %}Medicine Name{% endif %} *</label>
+                    {{ form.medicine_name }}
+                </div>
+                
+                <div class="form-group">
+                    <label>{% if language == 'mr' %}डोस{% else %}Dosage{% endif %} *</label>
+                    {{ form.dosage }}
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>{% if language == 'mr' %}वारंवारता{% else %}Frequency{% endif %} *</label>
+                    {{ form.frequency }}
+                    <small>{% if language == 'mr' %}उदा: दिवसातून दोनदा{% else %}e.g., Twice daily{% endif %}</small>
+                </div>
+                
+                <div class="form-group">
+                    <label>{% if language == 'mr' %}कालावधी{% else %}Duration{% endif %} *</label>
+                    {{ form.duration }}
+                    <small>{% if language == 'mr' %}उदा: 5 दिवस{% else %}e.g., 5 days{% endif %}</small>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>{% if language == 'mr' %}मार्ग{% else %}Route{% endif %}</label>
+                    {{ form.route }}
+                    <small>{% if language == 'mr' %}उदा: तोंडी, इंजेक्शन{% else %}e.g., Oral, Injection{% endif %}</small>
+                </div>
+                
+                <div class="form-group">
+                    <label>{% if language == 'mr' %}सुरुवातीची तारीख{% else %}Start Date{% endif %} *</label>
+                    {{ form.start_date }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>{% if language == 'mr' %}समाप्तीची तारीख{% else %}End Date{% endif %}</label>
+                {{ form.end_date }}
+            </div>
+
+            <div class="form-group">
+                <label>{% if language == 'mr' %}सूचना{% else %}Instructions{% endif %}</label>
+                {{ form.instructions }}
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">
+                    {% if language == 'mr' %}जतन करा{% else %}Save Medicine{% endif %}
+                </button>
+                <a href="{% url 'visit_detail' visit.pk %}" class="btn btn-secondary">
+                    {% if language == 'mr' %}रद्द करा{% else %}Cancel{% endif %}
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h1>{% if language == 'mr' %}लसीकरण नोंदी{% else %}Vaccination Records{% endif %}</h1>
+        <div class="header-actions">
+            <a href="{% url 'vaccination_create' %}" class="btn btn-primary">
+                {% if language == 'mr' %}+ नवीन लसीकरण{% else %}+ New Vaccination{% endif %}
+            </a>
+        </div>
+    </div>
+
+    {% if vaccinations %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>{% if language == 'mr' %}गाय{% else %}Cow{% endif %}</th>
+                <th>{% if language == 'mr' %}लस{% else %}Vaccine{% endif %}</th>
+                <th>{% if language == 'mr' %}रोग प्रतिबंध{% else %}Disease Prevention{% endif %}</th>
+                <th>{% if language == 'mr' %}तारीख{% else %}Date{% endif %}</th>
+                <th>{% if language == 'mr' %}पुढील देय{% else %}Next Due{% endif %}</th>
+                <th>{% if language == 'mr' %}डॉक्टर{% else %}Doctor{% endif %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for vaccination in vaccinations %}
+            <tr>
+                <td>{{ vaccination.cow.cow_number }}</td>
+                <td>{{ vaccination.vaccine_name }}</td>
+                <td>{{ vaccination.disease_prevention }}</td>
+                <td>{{ vaccination.vaccination_date }}</td>
+                <td>
+                    {% if vaccination.next_due_date %}
+                        {{ vaccination.next_due_date }}
+                        {% if vaccination.next_due_date < today %}
+                        <span class="badge badge-danger">{% if language == 'mr' %}थकीत{% else %}Overdue{% endif %}</span>
+                        {% endif %}
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+                <td>Dr. {{ vaccination.administered_by.name }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="empty-state">
+        <p>{% if language == 'mr' %}अद्याप कोणतेही लसीकरण नोंद नाही{% else %}No vaccination records yet{% endif %}</p>
+        <a href="{% url 'vaccination_create' %}" class="btn btn-primary">
+            {% if language == 'mr' %}पहिली नोंद जोडा{% else %}Add First Record{% endif %}
+        </a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

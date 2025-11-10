@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h1>{% if language == 'mr' %}कृत्रिम रेतन नोंदी{% else %}Artificial Insemination Records{% endif %}</h1>
+        <div class="header-actions">
+            <a href="{% url 'ai_create' %}" class="btn btn-primary">
+                {% if language == 'mr' %}+ नवीन AI नोंद{% else %}+ New AI Record{% endif %}
+            </a>
+        </div>
+    </div>
+
+    {% if ai_records %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>{% if language == 'mr' %}गाय{% else %}Cow{% endif %}</th>
+                <th>{% if language == 'mr' %}तारीख{% else %}Date{% endif %}</th>
+                <th>{% if language == 'mr' %}बैलाची जात{% else %}Bull Breed{% endif %}</th>
+                <th>{% if language == 'mr' %}डॉक्टर{% else %}Doctor{% endif %}</th>
+                <th>{% if language == 'mr' %}स्थिती{% else %}Status{% endif %}</th>
+                <th>{% if language == 'mr' %}क्रिया{% else %}Actions{% endif %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ai in ai_records %}
+            <tr>
+                <td>{{ ai.cow.cow_number }}</td>
+                <td>{{ ai.ai_date }}</td>
+                <td>{{ ai.bull_breed }}</td>
+                <td>Dr. {{ ai.doctor.name }}</td>
+                <td>
+                    <span class="badge badge-{% if ai.success_status == 'Confirmed' %}success{% elif ai.success_status == 'Failed' %}danger{% else %}warning{% endif %}">
+                        {{ ai.success_status }}
+                    </span>
+                </td>
+                <td>
+                    <a href="{% url 'ai_detail' ai.pk %}" class="btn btn-sm btn-info">
+                        {% if language == 'mr' %}पहा{% else %}View{% endif %}
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="empty-state">
+        <p>{% if language == 'mr' %}अद्याप कोणतीही AI नोंद नाही{% else %}No AI records yet{% endif %}</p>
+        <a href="{% url 'ai_create' %}" class="btn btn-primary">
+            {% if language == 'mr' %}पहिली नोंद जोडा{% else %}Add First Record{% endif %}
+        </a>
+    </div>
+    {% endif %}
+</div>
+
+<style>
+.badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+.badge-success { background: #d4edda; color: #155724; }
+.badge-warning { background: #fff3cd; color: #856404; }
+.badge-danger { background: #f8d7da; color: #721c24; }
+</style>
+{% endblock %}

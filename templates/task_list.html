@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if language == 'mr' %}कार्य यादी{% else %}Tasks List{% endif %}{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>{% if language == 'mr' %}कार्य व्यवस्थापन{% else %}Task Management{% endif %}</h1>
+    {% if user.user_type == 'admin' %}
+    <a href="{% url 'task_create' %}" class="btn btn-primary">
+        {% if language == 'mr' %}+ नवीन कार्य नियुक्त करा{% else %}+ Assign New Task{% endif %}
+    </a>
+    {% endif %}
+</div>
+
+<div class="table-responsive">
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>{% if language == 'mr' %}शीर्षक{% else %}Title{% endif %}</th>
+                {% if user.user_type == 'admin' %}
+                <th>{% if language == 'mr' %}नियुक्त केलेले{% else %}Assigned To{% endif %}</th>
+                {% endif %}
+                <th>{% if language == 'mr' %}वर्णन{% else %}Description{% endif %}</th>
+                <th>{% if language == 'mr' %}मुदत{% else %}Deadline{% endif %}</th>
+                <th>{% if language == 'mr' %}स्थिती{% else %}Status{% endif %}</th>
+                <th>{% if language == 'mr' %}कृती{% else %}Actions{% endif %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            <tr class="{% if task.is_overdue %}overdue-row{% endif %}">
+                <td><strong>{{ task.title }}</strong></td>
+                {% if user.user_type == 'admin' %}
+                <td>{{ task.assigned_to.user.get_full_name }}</td>
+                {% endif %}
+                <td>{{ task.description|truncatewords:15 }}</td>
+                <td>{{ task.deadline|date:"d M Y, h:i A" }}</td>
+                <td><span class="badge badge-{{ task.status }}">{{ task.get_status_display }}</span></td>
+                <td>
+                    <a href="{% url 'task_detail' task.id %}" class="btn btn-sm btn-info">
+                        {% if language == 'mr' %}पहा{% else %}View{% endif %}
+                    </a>
+                    <a href="{% url 'task_update' task.id %}" class="btn btn-sm btn-primary">
+                        {% if language == 'mr' %}अद्यतनित करा{% else %}Update{% endif %}
+                    </a>
+                    {% if user.user_type == 'admin' %}
+                    <a href="{% url 'task_delete' task.id %}" class="btn btn-sm btn-danger">
+                        {% if language == 'mr' %}हटवा{% else %}Delete{% endif %}
+                    </a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="{% if user.user_type == 'admin' %}6{% else %}5{% endif %}" class="text-center">
+                    {% if language == 'mr' %}कोणतीही कार्ये नाहीत{% else %}No tasks found{% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,171 @@
+========================================
+DAIRY FARM MANAGEMENT SYSTEM
+Setup Instructions
+========================================
+
+PROJECT TITLE: "Dairy Farm Management System" / "गाय आणि कामगार व्यवस्थापन प्रणाली"
+
+FEATURES:
+- Bilingual Support (English/Marathi)
+- Admin and Worker Login System
+- Worker Management (Admin only can create workers)
+- Task Assignment with Deadlines and Notes
+- Veterinary Section for Cow Management
+- Medical Records Tracking
+
+========================================
+INSTALLATION STEPS:
+========================================
+
+1. Install Python (if not already installed)
+   - Download from: https://www.python.org/downloads/
+   - Make sure to check "Add Python to PATH" during installation
+
+2. Open Command Prompt/PowerShell in the project directory
+   Navigate to: c:\Users\Rohit\Documents\projects\Cow and Worker management
+
+3. Create a Virtual Environment (Recommended)
+   python -m venv venv
+   
+4. Activate Virtual Environment
+   venv\Scripts\activate
+
+5. Install Required Packages
+   pip install -r requirements.txt
+
+6. Run Database Migrations
+   python manage.py makemigrations
+   python manage.py migrate
+
+7. Create Admin Superuser
+   python manage.py createsuperuser
+   
+   Follow the prompts to create an admin account:
+   - Username: admin (or your choice)
+   - Email: admin@example.com
+   - Password: (create a secure password)
+
+8. Create Media Directory
+   mkdir media
+   mkdir media\cows
+
+9. Run the Development Server
+   python manage.py runserver
+
+10. Access the Application
+    Open your browser and go to: http://127.0.0.1:8000/
+
+========================================
+DEFAULT LOGIN CREDENTIALS:
+========================================
+
+After creating superuser, you can login with:
+- Username: (the one you created in step 7)
+- Password: (the one you created in step 7)
+
+The superuser will have admin privileges and can:
+- Create workers
+- Assign tasks
+- Manage cows
+- View all records
+
+========================================
+CREATING FIRST WORKER:
+========================================
+
+1. Login as admin
+2. Go to "Workers" section
+3. Click "Add New Worker" / "नवीन कामगार जोडा"
+4. Fill in the worker details:
+   - Personal Information
+   - Employee ID
+   - Username and Password
+5. Worker can then login with their credentials
+
+========================================
+LANGUAGE SWITCHING:
+========================================
+
+- On the login page, click "English" or "मराठी" button
+- After login, use the dropdown menu (username) → Language option
+- The entire website will switch to the selected language
+
+========================================
+ADMIN CAPABILITIES:
+========================================
+
+1. Worker Management:
+   - Create new workers
+   - View all workers
+   - Deactivate workers
+
+2. Task Management:
+   - Assign tasks to workers
+   - Set deadlines
+   - Add instructions/notes
+   - Update task status
+   - Delete tasks
+
+3. Veterinary Management:
+   - Add new cows with details
+   - Upload cow photos
+   - Track identification marks
+   - Add medical records
+   - Schedule checkups
+
+========================================
+WORKER CAPABILITIES:
+========================================
+
+1. View assigned tasks
+2. Update task status (Pending → In Progress → Completed)
+3. View task details and instructions
+4. View cow information (read-only)
+
+========================================
+DATABASE:
+========================================
+
+The system uses SQLite database (db.sqlite3)
+- Lightweight and perfect for small to medium farms
+- No additional database setup required
+- All data stored locally
+
+========================================
+TROUBLESHOOTING:
+========================================
+
+1. If you get "No module named 'django'":
+   - Make sure virtual environment is activated
+   - Run: pip install -r requirements.txt
+
+2. If static files don't load:
+   - Run: python manage.py collectstatic
+   - Check STATIC_URL in settings.py
+
+3. If images don't upload:
+   - Make sure media folder exists
+   - Check file permissions
+
+4. If you forget admin password:
+   - Run: python manage.py changepassword <username>
+
+========================================
+IMPORTANT NOTES:
+========================================
+
+1. NO REGISTRATION PAGE - Only admin can create workers
+2. Workers cannot register themselves
+3. Admin must create all user accounts
+4. Keep your admin credentials secure
+5. Regular backups of db.sqlite3 recommended
+
+========================================
+SUPPORT:
+========================================
+
+For any issues or questions, check:
+- Django Documentation: https://docs.djangoproject.com/
+- Project files in the core/ directory
+
+========================================

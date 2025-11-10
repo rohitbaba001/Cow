@@ -1,0 +1,225 @@
+========================================
+COMPREHENSIVE VETERINARY SYSTEM GUIDE
+========================================
+
+OVERVIEW:
+The veterinary system has been completely redesigned with comprehensive features for managing
+all aspects of cattle healthcare, breeding, and medical records.
+
+========================================
+NEW MODELS & FEATURES:
+========================================
+
+1. DOCTOR MANAGEMENT
+   - Add veterinary doctors with full details
+   - Fields: Name, Qualification, Specialization, License Number, Phone, Email, Clinic, Address
+   - Admin and Workers can view doctors
+   - Only Admin can add/edit doctors
+
+2. VETERINARY VISITS
+   - Record all vet visits with complete details
+   - Visit Types: Routine Checkup, Emergency, Vaccination, AI, Pregnancy Check, Treatment, Other
+   - Fields:
+     * Cow, Doctor, Date, Time
+     * Visit Type, Reason for Visit
+     * Symptoms, Diagnosis, Treatment Given
+     * Doctor Instructions (special notes from doctor)
+     * Next Visit Date, Visit Cost
+     * General Notes
+   - Both Admin and Workers can record visits (with permissions)
+
+3. MEDICINE RECORDS
+   - Track all medicines given during visits
+   - Fields:
+     * Medicine Name, Dosage, Frequency, Duration
+     * Route (Oral, Injection, Topical, etc.)
+     * Start Date, End Date
+     * Special Instructions
+   - Linked to specific veterinary visits
+
+4. ARTIFICIAL INSEMINATION (AI)
+   - Complete AI tracking system
+   - Fields:
+     * Cow, Doctor, AI Date & Time
+     * Bull Breed, Bull ID, Semen Source
+     * Heat Detection Date
+     * Technician Name
+     * Success Status (Pending/Confirmed/Failed)
+     * Expected Calving Date
+     * Cost, Notes
+   - Workers can record AI with proper training
+   - Admin has full access
+
+5. PREGNANCY TRACKING
+   - Monitor pregnancy from confirmation to delivery
+   - Status Options: Suspected, Confirmed, Failed, Aborted, Delivered
+   - Fields:
+     * Cow, Linked AI Record
+     * Confirmation Date, Confirmed By (Doctor)
+     * Pregnancy Status
+     * Expected Delivery Date, Actual Delivery Date
+     * Pregnancy Duration (days)
+     * Calf Gender (Male/Female)
+     * Calf Weight (kg)
+     * Delivery Type (Normal/C-Section/Assisted)
+     * Complications, Doctor Notes
+   - Admin and authorized workers can update
+
+6. VACCINATION RECORDS
+   - Complete vaccination tracking
+   - Fields:
+     * Cow, Vaccine Name
+     * Disease Prevention (what disease it prevents)
+     * Vaccination Date, Next Due Date
+     * Batch Number
+     * Administered By (Doctor)
+     * Dosage, Route
+     * Notes
+   - Automatic reminders for next due dates
+
+========================================
+PERMISSIONS SYSTEM:
+========================================
+
+ADMIN (Full Access):
+- Add/Edit/Delete Doctors
+- Record all types of veterinary visits
+- Add medicines, AI records, pregnancy updates
+- Record vaccinations
+- View all historical records
+- Generate reports
+- Manage worker permissions
+
+WORKERS (Limited Access):
+- View doctor list
+- Record veterinary visits (assigned cows only)
+- Add medicine records during visits
+- Record AI procedures (if trained)
+- Update pregnancy status
+- Record vaccinations
+- View records for assigned cows
+- Cannot delete records
+
+========================================
+HOW TO USE (Admin Panel):
+========================================
+
+1. ADD DOCTORS:
+   - Go to Admin Panel > Doctors > Add Doctor
+   - Fill in: Name, Qualification, License Number, Phone, etc.
+   - Save
+
+2. RECORD VETERINARY VISIT:
+   - Go to Admin Panel > Veterinary Visits > Add Visit
+   - Select Cow and Doctor
+   - Choose Visit Type
+   - Fill in Reason, Symptoms, Diagnosis, Treatment
+   - Add Doctor Instructions if any
+   - Set Next Visit Date
+   - Save
+
+3. ADD MEDICINES:
+   - Go to Admin Panel > Medicines > Add Medicine
+   - Select the Visit (from step 2)
+   - Enter Medicine Name, Dosage, Frequency, Duration
+   - Add special instructions
+   - Save
+
+4. RECORD ARTIFICIAL INSEMINATION:
+   - Go to Admin Panel > Artificial Inseminations > Add AI Record
+   - Select Cow and Doctor
+   - Enter AI Date, Time
+   - Specify Bull Breed, Bull ID
+   - Enter Heat Detection Date
+   - Set Expected Calving Date (usually 280 days from AI)
+   - Save
+
+5. TRACK PREGNANCY:
+   - Go to Admin Panel > Pregnancies > Add Pregnancy
+   - Select Cow and link to AI Record (if applicable)
+   - Enter Confirmation Date
+   - Select Confirmed By (Doctor)
+   - Set Pregnancy Status
+   - Enter Expected Delivery Date
+   - Update with actual delivery details when calf is born
+   - Save
+
+6. RECORD VACCINATION:
+   - Go to Admin Panel > Vaccinations > Add Vaccination
+   - Select Cow
+   - Enter Vaccine Name and Disease it Prevents
+   - Set Vaccination Date and Next Due Date
+   - Enter Batch Number, Dosage, Route
+   - Select Administered By (Doctor)
+   - Save
+
+========================================
+COMMON WORKFLOWS:
+========================================
+
+WORKFLOW 1: ROUTINE CHECKUP
+1. Doctor visits farm
+2. Record Veterinary Visit (type: Routine Checkup)
+3. Add any medicines prescribed
+4. Set next checkup date
+
+WORKFLOW 2: ARTIFICIAL INSEMINATION & PREGNANCY
+1. Detect cow in heat
+2. Record AI procedure with bull details
+3. Wait 21-60 days
+4. Pregnancy check by doctor
+5. If confirmed, create Pregnancy record
+6. Update pregnancy status as it progresses
+7. Record delivery details when calf is born
+
+WORKFLOW 3: VACCINATION SCHEDULE
+1. Create vaccination record
+2. Set next due date
+3. System will show upcoming vaccinations
+4. Record when vaccination is done
+5. Update next due date
+
+WORKFLOW 4: EMERGENCY TREATMENT
+1. Record Veterinary Visit (type: Emergency)
+2. Document symptoms and diagnosis
+3. Add all medicines given
+4. Add doctor instructions for follow-up care
+5. Set next visit date for checkup
+
+========================================
+BILINGUAL SUPPORT:
+========================================
+
+All features support both English and Marathi:
+- Doctor (डॉक्टर)
+- Veterinary Visit (पशुवैद्यकीय भेट)
+- Medicine (औषध)
+- Artificial Insemination (कृत्रिम रेतन)
+- Pregnancy (गर्भधारणा)
+- Vaccination (लसीकरण)
+
+========================================
+REPORTS & ANALYTICS:
+========================================
+
+Available through Admin Panel:
+- Upcoming vaccinations
+- Pregnant cows list
+- AI success rate
+- Doctor visit history
+- Medicine usage
+- Health status overview
+
+========================================
+NEXT STEPS:
+========================================
+
+1. Add doctors to the system
+2. Start recording veterinary visits
+3. Track AI and pregnancies
+4. Maintain vaccination schedule
+5. Generate reports for farm management
+
+For any questions or issues, contact the system administrator.
+
+========================================

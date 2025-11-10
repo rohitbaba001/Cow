@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="{{ language|default:'en' }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% if language == 'mr' %}गाय आणि कामगार व्यवस्थापन{% else %}Dairy Farm Management System{% endif %}{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    {% if user.is_authenticated %}
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h2>{% if language == 'mr' %}🐄 गाय आणि कामगार व्यवस्थापन{% else %}🐄 Dairy Farm Management{% endif %}</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="{% url 'dashboard' %}">{% if language == 'mr' %}डॅशबोर्ड{% else %}Dashboard{% endif %}</a></li>
+                
+                {% if user.user_type == 'admin' %}
+                <li><a href="{% url 'worker_list' %}">{% if language == 'mr' %}कामगार{% else %}Workers{% endif %}</a></li>
+                {% endif %}
+                
+                <li><a href="{% url 'task_list' %}">{% if language == 'mr' %}कार्ये{% else %}Tasks{% endif %}</a></li>
+                <li><a href="{% url 'cow_list' %}">{% if language == 'mr' %}गाय{% else %}Cows{% endif %}</a></li>
+                <li><a href="{% url 'veterinary_dashboard' %}">{% if language == 'mr' %}पशुवैद्यकीय{% else %}Veterinary{% endif %}</a></li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">{{ user.username }} ▼</a>
+                    <div class="dropdown-content">
+                        <a href="{% url 'change_language' %}?lang={% if language == 'mr' %}en{% else %}mr{% endif %}">
+                            {% if language == 'mr' %}🌐 English{% else %}🌐 मराठी{% endif %}
+                        </a>
+                        <a href="{% url 'logout' %}">{% if language == 'mr' %}बाहेर पडा{% else %}Logout{% endif %}</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    {% endif %}
+
+    <div class="container">
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+                <button class="close-btn" onclick="this.parentElement.style.display='none'">×</button>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% block content %}{% endblock %}
+    </div>
+
+    <script src="/static/js/script.js"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

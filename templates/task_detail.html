@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if language == 'mr' %}कार्य तपशील{% else %}Task Details{% endif %}{% endblock %}
+
+{% block content %}
+<div class="detail-container">
+    <div class="detail-header">
+        <h1>{{ task.title }}</h1>
+        <span class="badge badge-{{ task.status }}">{{ task.get_status_display }}</span>
+    </div>
+
+    <div class="detail-grid">
+        <div class="detail-section">
+            <h3>{% if language == 'mr' %}कार्य माहिती{% else %}Task Information{% endif %}</h3>
+            
+            <div class="detail-row">
+                <strong>{% if language == 'mr' %}वर्णन:{% else %}Description:{% endif %}</strong>
+                <p>{{ task.description }}</p>
+            </div>
+
+            {% if user.user_type == 'admin' %}
+            <div class="detail-row">
+                <strong>{% if language == 'mr' %}नियुक्त केलेले:{% else %}Assigned To:{% endif %}</strong>
+                <p>{{ task.assigned_to.user.get_full_name }} ({{ task.assigned_to.employee_id }})</p>
+            </div>
+            {% endif %}
+
+            <div class="detail-row">
+                <strong>{% if language == 'mr' %}मुदत:{% else %}Deadline:{% endif %}</strong>
+                <p>{{ task.deadline|date:"d M Y, h:i A" }}</p>
+            </div>
+
+            <div class="detail-row">
+                <strong>{% if language == 'mr' %}तयार केले:{% else %}Created:{% endif %}</strong>
+                <p>{{ task.created_at|date:"d M Y, h:i A" }}</p>
+            </div>
+
+            <div class="detail-row">
+                <strong>{% if language == 'mr' %}अद्यतनित:{% else %}Updated:{% endif %}</strong>
+                <p>{{ task.updated_at|date:"d M Y, h:i A" }}</p>
+            </div>
+
+            {% if task.completed_at %}
+            <div class="detail-row">
+                <strong>{% if language == 'mr' %}पूर्ण झाले:{% else %}Completed:{% endif %}</strong>
+                <p>{{ task.completed_at|date:"d M Y, h:i A" }}</p>
+            </div>
+            {% endif %}
+        </div>
+
+        {% if task.notes %}
+        <div class="detail-section">
+            <h3>{% if language == 'mr' %}सूचना / टिपा{% else %}Notes / Instructions{% endif %}</h3>
+            <div class="notes-box">
+                {{ task.notes|linebreaks }}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="detail-actions">
+        <a href="{% url 'task_update' task.id %}" class="btn btn-primary">
+            {% if language == 'mr' %}अद्यतनित करा{% else %}Update{% endif %}
+        </a>
+        {% if user.user_type == 'admin' %}
+        <a href="{% url 'task_delete' task.id %}" class="btn btn-danger">
+            {% if language == 'mr' %}हटवा{% else %}Delete{% endif %}
+        </a>
+        {% endif %}
+        <a href="{% url 'task_list' %}" class="btn btn-secondary">
+            {% if language == 'mr' %}परत{% else %}Back{% endif %}
+        </a>
+    </div>
+</div>
+{% endblock %}

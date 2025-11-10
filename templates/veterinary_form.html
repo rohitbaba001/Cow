@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if language == 'mr' %}वैद्यकीय नोंद जोडा{% else %}Add Medical Record{% endif %}{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h1>{% if language == 'mr' %}वैद्यकीय नोंद जोडा{% else %}Add Medical Record{% endif %}</h1>
+    <p class="subtitle">{% if language == 'mr' %}गाय:{% else %}Cow:{% endif %} <strong>{{ cow.cow_number }}{% if cow.cow_name %} - {{ cow.cow_name }}{% endif %}</strong></p>
+    
+    <form method="post" class="form-horizontal">
+        {% csrf_token %}
+        
+        {{ form.cow.as_hidden }}
+        
+        <div class="form-group">
+            <label for="id_checkup_date">{% if language == 'mr' %}तपासणी तारीख{% else %}Checkup Date{% endif %} *</label>
+            {{ form.checkup_date }}
+            {% if form.checkup_date.errors %}
+            <span class="error">{{ form.checkup_date.errors }}</span>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="id_symptoms">{% if language == 'mr' %}लक्षणे{% else %}Symptoms{% endif %}</label>
+            {{ form.symptoms }}
+            {% if form.symptoms.errors %}
+            <span class="error">{{ form.symptoms.errors }}</span>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="id_diagnosis">{% if language == 'mr' %}निदान{% else %}Diagnosis{% endif %} *</label>
+            {{ form.diagnosis }}
+            {% if form.diagnosis.errors %}
+            <span class="error">{{ form.diagnosis.errors }}</span>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="id_treatment">{% if language == 'mr' %}उपचार{% else %}Treatment{% endif %} *</label>
+            {{ form.treatment }}
+            {% if form.treatment.errors %}
+            <span class="error">{{ form.treatment.errors }}</span>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="id_medication">{% if language == 'mr' %}औषध{% else %}Medication{% endif %}</label>
+            {{ form.medication }}
+            {% if form.medication.errors %}
+            <span class="error">{{ form.medication.errors }}</span>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="id_veterinarian_name">{% if language == 'mr' %}पशुवैद्याचे नाव{% else %}Veterinarian Name{% endif %} *</label>
+            {{ form.veterinarian_name }}
+            {% if form.veterinarian_name.errors %}
+            <span class="error">{{ form.veterinarian_name.errors }}</span>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="id_next_checkup">{% if language == 'mr' %}पुढील तपासणी{% else %}Next Checkup{% endif %}</label>
+            {{ form.next_checkup }}
+            {% if form.next_checkup.errors %}
+            <span class="error">{{ form.next_checkup.errors }}</span>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="id_notes">{% if language == 'mr' %}टिपा{% else %}Notes{% endif %}</label>
+            {{ form.notes }}
+            {% if form.notes.errors %}
+            <span class="error">{{ form.notes.errors }}</span>
+            {% endif %}
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+                {% if language == 'mr' %}नोंद जतन करा{% else %}Save Record{% endif %}
+            </button>
+            <a href="{% url 'cow_detail' cow.id %}" class="btn btn-secondary">
+                {% if language == 'mr' %}रद्द करा{% else %}Cancel{% endif %}
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}

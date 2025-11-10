@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if language == 'mr' %}पशुवैद्यकीय विभाग{% else %}Veterinary Section{% endif %}{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>{% if language == 'mr' %}गाय व्यवस्थापन{% else %}Cow Management{% endif %}</h1>
+    {% if user.user_type == 'admin' %}
+    <a href="{% url 'cow_create' %}" class="btn btn-primary">
+        {% if language == 'mr' %}+ नवीन गाय जोडा{% else %}+ Add New Cow{% endif %}
+    </a>
+    {% endif %}
+</div>
+
+<div class="cow-grid">
+    {% for cow in cows %}
+    <div class="cow-card">
+        {% if cow.photo %}
+        <img src="{{ cow.photo.url }}" alt="{{ cow.cow_number }}" class="cow-image">
+        {% else %}
+        <div class="cow-image-placeholder">🐄</div>
+        {% endif %}
+        
+        <div class="cow-card-body">
+            <h3>{{ cow.cow_number }}</h3>
+            {% if cow.cow_name %}
+            <p class="cow-name">{{ cow.cow_name }}</p>
+            {% endif %}
+            
+            <div class="cow-info">
+                <p><strong>{% if language == 'mr' %}जात:{% else %}Breed:{% endif %}</strong> {{ cow.breed }}</p>
+                <p><strong>{% if language == 'mr' %}वय:{% else %}Age:{% endif %}</strong> {{ cow.age }} {% if language == 'mr' %}वर्षे{% else %}years{% endif %}</p>
+                <p><strong>{% if language == 'mr' %}रंग:{% else %}Color:{% endif %}</strong> {{ cow.color }}</p>
+                <p><strong>{% if language == 'mr' %}आरोग्य:{% else %}Health:{% endif %}</strong> {{ cow.health_status }}</p>
+            </div>
+            
+            <div class="cow-card-actions">
+                <a href="{% url 'cow_detail' cow.id %}" class="btn btn-sm btn-info">
+                    {% if language == 'mr' %}तपशील{% else %}Details{% endif %}
+                </a>
+                {% if user.user_type == 'admin' %}
+                <a href="{% url 'cow_update' cow.id %}" class="btn btn-sm btn-primary">
+                    {% if language == 'mr' %}संपादित करा{% else %}Edit{% endif %}
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="empty-state">
+        <p>{% if language == 'mr' %}कोणतीही गाय नाही{% else %}No cows found{% endif %}</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

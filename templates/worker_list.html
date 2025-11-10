@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if language == 'mr' %}कामगार यादी{% else %}Workers List{% endif %}{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>{% if language == 'mr' %}कामगार व्यवस्थापन{% else %}Workers Management{% endif %}</h1>
+    <a href="{% url 'worker_create' %}" class="btn btn-primary">
+        {% if language == 'mr' %}+ नवीन कामगार जोडा{% else %}+ Add New Worker{% endif %}
+    </a>
+</div>
+
+<div class="table-responsive">
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>{% if language == 'mr' %}कर्मचारी आयडी{% else %}Employee ID{% endif %}</th>
+                <th>{% if language == 'mr' %}नाव{% else %}Name{% endif %}</th>
+                <th>{% if language == 'mr' %}वापरकर्तानाव{% else %}Username{% endif %}</th>
+                <th>{% if language == 'mr' %}ईमेल{% else %}Email{% endif %}</th>
+                <th>{% if language == 'mr' %}फोन{% else %}Phone{% endif %}</th>
+                <th>{% if language == 'mr' %}सामील झाल्याची तारीख{% else %}Joining Date{% endif %}</th>
+                <th>{% if language == 'mr' %}स्थिती{% else %}Status{% endif %}</th>
+                <th>{% if language == 'mr' %}कृती{% else %}Actions{% endif %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for worker in workers %}
+            <tr>
+                <td>{{ worker.employee_id }}</td>
+                <td>{{ worker.user.get_full_name }}</td>
+                <td>{{ worker.user.username }}</td>
+                <td>{{ worker.user.email }}</td>
+                <td>{{ worker.user.phone_number|default:"-" }}</td>
+                <td>{{ worker.date_of_joining|date:"d M Y" }}</td>
+                <td>
+                    {% if worker.is_active %}
+                    <span class="badge badge-success">{% if language == 'mr' %}सक्रिय{% else %}Active{% endif %}</span>
+                    {% else %}
+                    <span class="badge badge-secondary">{% if language == 'mr' %}निष्क्रिय{% else %}Inactive{% endif %}</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{% url 'worker_delete' worker.id %}" class="btn btn-sm btn-danger">
+                        {% if language == 'mr' %}निष्क्रिय करा{% else %}Deactivate{% endif %}
+                    </a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="8" class="text-center">
+                    {% if language == 'mr' %}कोणतेही कामगार नाहीत{% else %}No workers found{% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

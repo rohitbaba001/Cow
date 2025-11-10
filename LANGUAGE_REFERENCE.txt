@@ -1,0 +1,169 @@
+========================================
+BILINGUAL REFERENCE GUIDE
+English - Marathi Translations
+========================================
+
+PROJECT TITLE:
+English: Dairy Farm Management System
+Marathi: गाय आणि कामगार व्यवस्थापन प्रणाली
+
+========================================
+COMMON TERMS:
+========================================
+
+Dashboard - डॅशबोर्ड
+Login - लॉगिन
+Logout - बाहेर पडा
+Username - वापरकर्तानाव
+Password - पासवर्ड
+Admin - प्रशासक
+Worker - कामगार
+Workers - कामगार
+Tasks - कार्ये
+Veterinary - पशुवैद्यकीय
+
+========================================
+WORKER MANAGEMENT:
+========================================
+
+Add New Worker - नवीन कामगार जोडा
+Create Worker - कामगार तयार करा
+Worker Management - कामगार व्यवस्थापन
+Total Workers - एकूण कामगार
+Employee ID - कर्मचारी आयडी
+First Name - पहिले नाव
+Last Name - आडनाव
+Email - ईमेल
+Phone Number - फोन नंबर
+Address - पत्ता
+Date of Joining - सामील झाल्याची तारीख
+Active - सक्रिय
+Inactive - निष्क्रिय
+Deactivate - निष्क्रिय करा
+
+========================================
+TASK MANAGEMENT:
+========================================
+
+Task Management - कार्य व्यवस्थापन
+Assign Task - कार्य नियुक्त करा
+Assign New Task - नवीन कार्य नियुक्त करा
+Total Tasks - एकूण कार्ये
+Pending Tasks - प्रलंबित कार्ये
+My Tasks - माझी कार्ये
+Recent Tasks - अलीकडील कार्ये
+Title - शीर्षक
+Description - वर्णन
+Assigned To - नियुक्त केलेले
+Deadline - मुदत
+Status - स्थिती
+Notes - टिपा
+Instructions - सूचना
+Task Details - कार्य तपशील
+Update Status - स्थिती अद्यतनित करा
+
+Task Status:
+Pending - प्रलंबित
+In Progress - प्रगतीपथावर
+Completed - पूर्ण झाले
+Overdue - मुदत संपली
+
+========================================
+COW/VETERINARY MANAGEMENT:
+========================================
+
+Cow Management - गाय व्यवस्थापन
+Add New Cow - नवीन गाय जोडा
+Add Cow - गाय जोडा
+Total Cows - एकूण गाई
+Recent Cows - अलीकडील गाई
+Cow Number - गाय क्रमांक
+Cow Name - गाय नाव
+Breed - जात
+Age - वय
+years - वर्षे
+Color - रंग
+Identification Mark - ओळखीचे चिन्ह
+Health Status - आरोग्य स्थिती
+Health - आरोग्य
+Last Checkup - शेवटची तपासणी
+Photo - फोटो
+Details - तपशील
+Edit - संपादित करा
+
+Medical Records:
+Medical Records - वैद्यकीय नोंदी
+Add Medical Record - वैद्यकीय नोंद जोडा
+New Record - नवीन नोंद
+Checkup Date - तपासणी तारीख
+Symptoms - लक्षणे
+Diagnosis - निदान
+Treatment - उपचार
+Medication - औषध
+Veterinarian - पशुवैद्य
+Veterinarian Name - पशुवैद्याचे नाव
+Next Checkup - पुढील तपासणी
+Save Record - नोंद जतन करा
+
+========================================
+FORM ACTIONS:
+========================================
+
+Create - तयार करा
+Update - अद्यतनित करा
+Delete - हटवा
+Cancel - रद्द करा
+Save - जतन करा
+Edit - संपादित करा
+View - पहा
+Back - परत
+Submit - सबमिट करा
+
+========================================
+INFORMATION SECTIONS:
+========================================
+
+Basic Information - मूलभूत माहिती
+Personal Information - वैयक्तिक माहिती
+Account Information - खाते माहिती
+Health Information - आरोग्य माहिती
+Task Information - कार्य माहिती
+
+========================================
+MESSAGES:
+========================================
+
+Login successful - लॉगिन यशस्वी
+Invalid credentials - अवैध प्रमाणपत्रे
+Worker created successfully - कामगार यशस्वीरित्या तयार केला
+Task assigned successfully - कार्य यशस्वीरित्या नियुक्त केले
+Cow added successfully - गाय यशस्वीरित्या जोडली
+Task updated - कार्य अद्यतनित
+Status updated - स्थिती अद्यतनित
+Cow updated - गाय अद्यतनित
+Worker deactivated - कामगार निष्क्रिय केला
+Task deleted - कार्य हटवले
+Cow deactivated - गाय निष्क्रिय केली
+Medical record added - वैद्यकीय रेकॉर्ड जोडले
+Access denied - प्रवेश नाकारला
+
+========================================
+CONFIRMATIONS:
+========================================
+
+Are you sure? - तुम्हाला खात्री आहे?
+Yes - होय
+No - नाही
+Confirm Password - पासवर्ड पुष्टी करा
+
+========================================
+EMPTY STATES:
+========================================
+
+No tasks found - कोणतीही कार्ये नाहीत
+No workers found - कोणतेही कामगार नाहीत
+No cows found - कोणतीही गाय नाही
+No tasks assigned - कोणतीही कार्ये नियुक्त केलेली नाहीत
+No medical records found - कोणत्याही वैद्यकीय नोंदी नाहीत
+
+========================================

@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if task %}{% if language == 'mr' %}कार्य संपादित करा{% else %}Edit Task{% endif %}{% else %}{% if language == 'mr' %}नवीन कार्य{% else %}New Task{% endif %}{% endif %}{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h1>{% if task %}{% if language == 'mr' %}कार्य संपादित करा{% else %}Edit Task{% endif %}{% else %}{% if language == 'mr' %}नवीन कार्य नियुक्त करा{% else %}Assign New Task{% endif %}{% endif %}</h1>
+    
+    <form method="post" class="form-horizontal">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="id_title">{% if language == 'mr' %}शीर्षक{% else %}Title{% endif %} *</label>
+            {{ form.title }}
+            {% if form.title.errors %}
+            <span class="error">{{ form.title.errors }}</span>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="id_description">{% if language == 'mr' %}वर्णन{% else %}Description{% endif %} *</label>
+            {{ form.description }}
+            {% if form.description.errors %}
+            <span class="error">{{ form.description.errors }}</span>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="id_assigned_to">{% if language == 'mr' %}कामगाराला नियुक्त करा{% else %}Assign to Worker{% endif %} *</label>
+            {{ form.assigned_to }}
+            {% if form.assigned_to.errors %}
+            <span class="error">{{ form.assigned_to.errors }}</span>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="id_deadline">{% if language == 'mr' %}मुदत{% else %}Deadline{% endif %} *</label>
+            {{ form.deadline }}
+            {% if form.deadline.errors %}
+            <span class="error">{{ form.deadline.errors }}</span>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="id_notes">{% if language == 'mr' %}सूचना / टिपा{% else %}Notes / Instructions{% endif %}</label>
+            {{ form.notes }}
+            {% if form.notes.errors %}
+            <span class="error">{{ form.notes.errors }}</span>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="id_status">{% if language == 'mr' %}स्थिती{% else %}Status{% endif %} *</label>
+            {{ form.status }}
+            {% if form.status.errors %}
+            <span class="error">{{ form.status.errors }}</span>
+            {% endif %}
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+                {% if task %}{% if language == 'mr' %}अद्यतनित करा{% else %}Update{% endif %}{% else %}{% if language == 'mr' %}कार्य नियुक्त करा{% else %}Assign Task{% endif %}{% endif %}
+            </button>
+            <a href="{% url 'task_list' %}" class="btn btn-secondary">
+                {% if language == 'mr' %}रद्द करा{% else %}Cancel{% endif %}
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}

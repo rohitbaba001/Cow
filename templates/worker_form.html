@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if language == 'mr' %}नवीन कामगार जोडा{% else %}Add New Worker{% endif %}{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h1>{% if language == 'mr' %}नवीन कामगार तयार करा{% else %}Create New Worker{% endif %}</h1>
+    
+    <form method="post" class="form-horizontal">
+        {% csrf_token %}
+        
+        <div class="form-section">
+            <h3>{% if language == 'mr' %}वैयक्तिक माहिती{% else %}Personal Information{% endif %}</h3>
+            
+            <div class="form-group">
+                <label for="id_first_name">{% if language == 'mr' %}पहिले नाव{% else %}First Name{% endif %} *</label>
+                {{ form.first_name }}
+                {% if form.first_name.errors %}
+                <span class="error">{{ form.first_name.errors }}</span>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_last_name">{% if language == 'mr' %}आडनाव{% else %}Last Name{% endif %} *</label>
+                {{ form.last_name }}
+                {% if form.last_name.errors %}
+                <span class="error">{{ form.last_name.errors }}</span>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_email">{% if language == 'mr' %}ईमेल{% else %}Email{% endif %} *</label>
+                {{ form.email }}
+                {% if form.email.errors %}
+                <span class="error">{{ form.email.errors }}</span>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_phone_number">{% if language == 'mr' %}फोन नंबर{% else %}Phone Number{% endif %}</label>
+                {{ form.phone_number }}
+                {% if form.phone_number.errors %}
+                <span class="error">{{ form.phone_number.errors }}</span>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_address">{% if language == 'mr' %}पत्ता{% else %}Address{% endif %}</label>
+                {{ form.address }}
+                {% if form.address.errors %}
+                <span class="error">{{ form.address.errors }}</span>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h3>{% if language == 'mr' %}खाते माहिती{% else %}Account Information{% endif %}</h3>
+            
+            <div class="form-group">
+                <label for="id_username">{% if language == 'mr' %}वापरकर्तानाव{% else %}Username{% endif %} *</label>
+                {{ form.username }}
+                {% if form.username.errors %}
+                <span class="error">{{ form.username.errors }}</span>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_employee_id">{% if language == 'mr' %}कर्मचारी आयडी{% else %}Employee ID{% endif %} *</label>
+                {{ form.employee_id }}
+                {% if form.employee_id.errors %}
+                <span class="error">{{ form.employee_id.errors }}</span>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_date_of_joining">{% if language == 'mr' %}सामील झाल्याची तारीख{% else %}Date of Joining{% endif %} *</label>
+                {{ form.date_of_joining }}
+                {% if form.date_of_joining.errors %}
+                <span class="error">{{ form.date_of_joining.errors }}</span>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_password1">{% if language == 'mr' %}पासवर्ड{% else %}Password{% endif %} *</label>
+                {{ form.password1 }}
+                {% if form.password1.errors %}
+                <span class="error">{{ form.password1.errors }}</span>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_password2">{% if language == 'mr' %}पासवर्ड पुष्टी करा{% else %}Confirm Password{% endif %} *</label>
+                {{ form.password2 }}
+                {% if form.password2.errors %}
+                <span class="error">{{ form.password2.errors }}</span>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+                {% if language == 'mr' %}कामगार तयार करा{% else %}Create Worker{% endif %}
+            </button>
+            <a href="{% url 'worker_list' %}" class="btn btn-secondary">
+                {% if language == 'mr' %}रद्द करा{% else %}Cancel{% endif %}
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}

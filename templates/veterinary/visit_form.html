@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h1>{% if language == 'mr' %}पशुवैद्यकीय भेट नोंदवा{% else %}Record Veterinary Visit{% endif %}</h1>
+        <p>{% if language == 'mr' %}गाय:{% else %}Cow:{% endif %} <strong>{{ cow.cow_number }} - {{ cow.cow_name }}</strong></p>
+    </div>
+
+    <div class="form-container">
+        <form method="post" class="form">
+            {% csrf_token %}
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>{% if language == 'mr' %}गाय{% else %}Cow{% endif %} *</label>
+                    {{ form.cow }}
+                </div>
+                
+                <div class="form-group">
+                    <label>{% if language == 'mr' %}डॉक्टर{% else %}Doctor{% endif %} *</label>
+                    {{ form.doctor }}
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>{% if language == 'mr' %}भेटीची तारीख{% else %}Visit Date{% endif %} *</label>
+                    {{ form.visit_date }}
+                </div>
+                
+                <div class="form-group">
+                    <label>{% if language == 'mr' %}वेळ{% else %}Time{% endif %} *</label>
+                    {{ form.visit_time }}
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>{% if language == 'mr' %}भेटीचा प्रकार{% else %}Visit Type{% endif %} *</label>
+                    {{ form.visit_type }}
+                </div>
+                
+                <div class="form-group">
+                    <label>{% if language == 'mr' %}खर्च{% else %}Cost{% endif %}</label>
+                    {{ form.visit_cost }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>{% if language == 'mr' %}भेटीचे कारण{% else %}Reason for Visit{% endif %} *</label>
+                {{ form.reason_for_visit }}
+            </div>
+
+            <div class="form-group">
+                <label>{% if language == 'mr' %}लक्षणे{% else %}Symptoms{% endif %}</label>
+                {{ form.symptoms }}
+            </div>
+
+            <div class="form-group">
+                <label>{% if language == 'mr' %}निदान{% else %}Diagnosis{% endif %}</label>
+                {{ form.diagnosis }}
+            </div>
+
+            <div class="form-group">
+                <label>{% if language == 'mr' %}उपचार{% else %}Treatment Given{% endif %}</label>
+                {{ form.treatment_given }}
+            </div>
+
+            <div class="form-group">
+                <label>{% if language == 'mr' %}डॉक्टरांच्या सूचना{% else %}Doctor Instructions{% endif %}</label>
+                {{ form.doctor_instructions }}
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>{% if language == 'mr' %}पुढील भेटीची तारीख{% else %}Next Visit Date{% endif %}</label>
+                    {{ form.next_visit_date }}
+                </div>
+                
+                <div class="form-group">
+                    <label>{% if language == 'mr' %}टिपा{% else %}Notes{% endif %}</label>
+                    {{ form.notes }}
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">
+                    {% if language == 'mr' %}जतन करा{% else %}Save Visit{% endif %}
+                </button>
+                <a href="{% url 'cow_detail' cow.pk %}" class="btn btn-secondary">
+                    {% if language == 'mr' %}रद्द करा{% else %}Cancel{% endif %}
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

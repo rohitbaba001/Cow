@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if cow %}{% if language == 'mr' %}गाय संपादित करा{% else %}Edit Cow{% endif %}{% else %}{% if language == 'mr' %}नवीन गाय जोडा{% else %}Add New Cow{% endif %}{% endif %}{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h1>{% if cow %}{% if language == 'mr' %}गाय माहिती संपादित करा{% else %}Edit Cow Information{% endif %}{% else %}{% if language == 'mr' %}नवीन गाय जोडा{% else %}Add New Cow{% endif %}{% endif %}</h1>
+    
+    <form method="post" enctype="multipart/form-data" class="form-horizontal">
+        {% csrf_token %}
+        
+        <div class="form-section">
+            <h3>{% if language == 'mr' %}मूलभूत माहिती{% else %}Basic Information{% endif %}</h3>
+            
+            <div class="form-group">
+                <label for="id_cow_number">{% if language == 'mr' %}गाय क्रमांक{% else %}Cow Number{% endif %} *</label>
+                {{ form.cow_number }}
+                {% if form.cow_number.errors %}
+                <span class="error">{{ form.cow_number.errors }}</span>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_cow_name">{% if language == 'mr' %}गाय नाव{% else %}Cow Name{% endif %}</label>
+                {{ form.cow_name }}
+                {% if form.cow_name.errors %}
+                <span class="error">{{ form.cow_name.errors }}</span>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_breed">{% if language == 'mr' %}जात{% else %}Breed{% endif %} *</label>
+                {{ form.breed }}
+                {% if form.breed.errors %}
+                <span class="error">{{ form.breed.errors }}</span>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_age">{% if language == 'mr' %}वय (वर्षांत){% else %}Age (in years){% endif %} *</label>
+                {{ form.age }}
+                {% if form.age.errors %}
+                <span class="error">{{ form.age.errors }}</span>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_color">{% if language == 'mr' %}रंग{% else %}Color{% endif %} *</label>
+                {{ form.color }}
+                {% if form.color.errors %}
+                <span class="error">{{ form.color.errors }}</span>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_identification_mark">{% if language == 'mr' %}ओळखीचे चिन्ह{% else %}Identification Mark{% endif %} *</label>
+                {{ form.identification_mark }}
+                {% if form.identification_mark.errors %}
+                <span class="error">{{ form.identification_mark.errors }}</span>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h3>{% if language == 'mr' %}आरोग्य माहिती{% else %}Health Information{% endif %}</h3>
+            
+            <div class="form-group">
+                <label for="id_health_status">{% if language == 'mr' %}आरोग्य स्थिती{% else %}Health Status{% endif %} *</label>
+                {{ form.health_status }}
+                {% if form.health_status.errors %}
+                <span class="error">{{ form.health_status.errors }}</span>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_last_checkup">{% if language == 'mr' %}शेवटची तपासणी{% else %}Last Checkup{% endif %}</label>
+                {{ form.last_checkup }}
+                {% if form.last_checkup.errors %}
+                <span class="error">{{ form.last_checkup.errors }}</span>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_notes">{% if language == 'mr' %}टिपा{% else %}Notes{% endif %}</label>
+                {{ form.notes }}
+                {% if form.notes.errors %}
+                <span class="error">{{ form.notes.errors }}</span>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_photo">{% if language == 'mr' %}फोटो{% else %}Photo{% endif %}</label>
+                {{ form.photo }}
+                {% if form.photo.errors %}
+                <span class="error">{{ form.photo.errors }}</span>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_is_active">
+                    {{ form.is_active }}
+                    {% if language == 'mr' %}सक्रिय{% else %}Active{% endif %}
+                </label>
+                {% if form.is_active.errors %}
+                <span class="error">{{ form.is_active.errors }}</span>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+                {% if cow %}{% if language == 'mr' %}अद्यतनित करा{% else %}Update{% endif %}{% else %}{% if language == 'mr' %}गाय जोडा{% else %}Add Cow{% endif %}{% endif %}
+            </button>
+            <a href="{% url 'cow_list' %}" class="btn btn-secondary">
+                {% if language == 'mr' %}रद्द करा{% else %}Cancel{% endif %}
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}

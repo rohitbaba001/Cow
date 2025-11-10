@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h1>{% if language == 'mr' %}AI नोंद तपशील{% else %}AI Record Details{% endif %}</h1>
+    </div>
+
+    <div class="detail-container">
+        <div class="detail-grid">
+            <div class="detail-section">
+                <h3>{% if language == 'mr' %}मूलभूत माहिती{% else %}Basic Information{% endif %}</h3>
+                <p><strong>{% if language == 'mr' %}गाय:{% else %}Cow:{% endif %}</strong> {{ ai_record.cow.cow_number }} - {{ ai_record.cow.cow_name }}</p>
+                <p><strong>{% if language == 'mr' %}डॉक्टर:{% else %}Doctor:{% endif %}</strong> Dr. {{ ai_record.doctor.name }}</p>
+                <p><strong>{% if language == 'mr' %}तारीख:{% else %}Date:{% endif %}</strong> {{ ai_record.ai_date }} {{ ai_record.ai_time }}</p>
+                <p><strong>{% if language == 'mr' %}स्थिती:{% else %}Status:{% endif %}</strong> 
+                    <span class="badge badge-{% if ai_record.success_status == 'Confirmed' %}success{% elif ai_record.success_status == 'Failed' %}danger{% else %}warning{% endif %}">
+                        {{ ai_record.success_status }}
+                    </span>
+                </p>
+            </div>
+
+            <div class="detail-section">
+                <h3>{% if language == 'mr' %}बैल माहिती{% else %}Bull Information{% endif %}</h3>
+                <p><strong>{% if language == 'mr' %}जात:{% else %}Breed:{% endif %}</strong> {{ ai_record.bull_breed }}</p>
+                {% if ai_record.bull_id %}
+                <p><strong>{% if language == 'mr' %}ID:{% else %}ID:{% endif %}</strong> {{ ai_record.bull_id }}</p>
+                {% endif %}
+                {% if ai_record.semen_source %}
+                <p><strong>{% if language == 'mr' %}वीर्य स्रोत:{% else %}Semen Source:{% endif %}</strong> {{ ai_record.semen_source }}</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="detail-grid">
+            <div class="detail-section">
+                <h3>{% if language == 'mr' %}तारखा{% else %}Dates{% endif %}</h3>
+                <p><strong>{% if language == 'mr' %}उष्णता शोध:{% else %}Heat Detection:{% endif %}</strong> {{ ai_record.heat_detection_date }}</p>
+                {% if ai_record.expected_calving_date %}
+                <p><strong>{% if language == 'mr' %}अपेक्षित वासर:{% else %}Expected Calving:{% endif %}</strong> {{ ai_record.expected_calving_date }}</p>
+                {% endif %}
+            </div>
+
+            <div class="detail-section">
+                <h3>{% if language == 'mr' %}अतिरिक्त माहिती{% else %}Additional Info{% endif %}</h3>
+                {% if ai_record.technician_name %}
+                <p><strong>{% if language == 'mr' %}तंत्रज्ञ:{% else %}Technician:{% endif %}</strong> {{ ai_record.technician_name }}</p>
+                {% endif %}
+                {% if ai_record.cost %}
+                <p><strong>{% if language == 'mr' %}खर्च:{% else %}Cost:{% endif %}</strong> ₹{{ ai_record.cost }}</p>
+                {% endif %}
+                <p><strong>{% if language == 'mr' %}नोंदवले:{% else %}Recorded By:{% endif %}</strong> {{ ai_record.recorded_by.username }}</p>
+            </div>
+        </div>
+
+        {% if ai_record.notes %}
+        <div class="detail-section">
+            <h3>{% if language == 'mr' %}टिपा{% else %}Notes{% endif %}</h3>
+            <p>{{ ai_record.notes }}</p>
+        </div>
+        {% endif %}
+
+        {% if pregnancy %}
+        <div class="detail-section highlight">
+            <h3>{% if language == 'mr' %}गर्भधारणा स्थिती{% else %}Pregnancy Status{% endif %}</h3>
+            <p><strong>{% if language == 'mr' %}स्थिती:{% else %}Status:{% endif %}</strong> {{ pregnancy.get_pregnancy_status_display }}</p>
+            <p><strong>{% if language == 'mr' %}पुष्टी तारीख:{% else %}Confirmed:{% endif %}</strong> {{ pregnancy.confirmation_date }}</p>
+            <a href="{% url 'pregnancy_update' pregnancy.pk %}" class="btn btn-primary">
+                {% if language == 'mr' %}गर्भधारणा अपडेट करा{% else %}Update Pregnancy{% endif %}
+            </a>
+        </div>
+        {% else %}
+        <div class="detail-section">
+            <a href="{% url 'pregnancy_create_for_cow' ai_record.cow.pk %}" class="btn btn-success">
+                {% if language == 'mr' %}+ गर्भधारणा नोंदवा{% else %}+ Record Pregnancy{% endif %}
+            </a>
+        </div>
+        {% endif %}
+
+        <div class="detail-actions">
+            <a href="{% url 'ai_list' %}" class="btn btn-secondary">
+                {% if language == 'mr' %}परत{% else %}Back to List{% endif %}
+            </a>
+            <a href="{% url 'cow_detail' ai_record.cow.pk %}" class="btn btn-info">
+                {% if language == 'mr' %}गाय पहा{% else %}View Cow{% endif %}
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

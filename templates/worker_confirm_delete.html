@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if language == 'mr' %}कामगार निष्क्रिय करा{% else %}Deactivate Worker{% endif %}{% endblock %}
+
+{% block content %}
+<div class="confirm-delete">
+    <h1>{% if language == 'mr' %}कामगार निष्क्रिय करा{% else %}Deactivate Worker{% endif %}</h1>
+    
+    <div class="alert alert-warning">
+        <p>{% if language == 'mr' %}तुम्हाला खात्री आहे की तुम्ही या कामगाराला निष्क्रिय करू इच्छिता?{% else %}Are you sure you want to deactivate this worker?{% endif %}</p>
+        <p><strong>{{ worker.user.get_full_name }} ({{ worker.employee_id }})</strong></p>
+    </div>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">
+            {% if language == 'mr' %}होय, निष्क्रिय करा{% else %}Yes, Deactivate{% endif %}
+        </button>
+        <a href="{% url 'worker_list' %}" class="btn btn-secondary">
+            {% if language == 'mr' %}रद्द करा{% else %}Cancel{% endif %}
+        </a>
+    </form>
+</div>
+{% endblock %}

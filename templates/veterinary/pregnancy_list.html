@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h1>{% if language == 'mr' %}गर्भधारणा नोंदी{% else %}Pregnancy Records{% endif %}</h1>
+        <div class="header-actions">
+            <a href="{% url 'pregnancy_create' %}" class="btn btn-primary">
+                {% if language == 'mr' %}+ नवीन गर्भधारणा{% else %}+ New Pregnancy{% endif %}
+            </a>
+        </div>
+    </div>
+
+    {% if pregnancies %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>{% if language == 'mr' %}गाय{% else %}Cow{% endif %}</th>
+                <th>{% if language == 'mr' %}स्थिती{% else %}Status{% endif %}</th>
+                <th>{% if language == 'mr' %}पुष्टी तारीख{% else %}Confirmed{% endif %}</th>
+                <th>{% if language == 'mr' %}अपेक्षित प्रसूती{% else %}Expected Delivery{% endif %}</th>
+                <th>{% if language == 'mr' %}वास्तविक प्रसूती{% else %}Actual Delivery{% endif %}</th>
+                <th>{% if language == 'mr' %}क्रिया{% else %}Actions{% endif %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pregnancy in pregnancies %}
+            <tr>
+                <td>{{ pregnancy.cow.cow_number }}</td>
+                <td>
+                    <span class="badge badge-{% if pregnancy.pregnancy_status == 'confirmed' %}success{% elif pregnancy.pregnancy_status == 'delivered' %}info{% elif pregnancy.pregnancy_status == 'failed' or pregnancy.pregnancy_status == 'aborted' %}danger{% else %}warning{% endif %}">
+                        {{ pregnancy.get_pregnancy_status_display }}
+                    </span>
+                </td>
+                <td>{{ pregnancy.confirmation_date }}</td>
+                <td>{{ pregnancy.expected_delivery_date }}</td>
+                <td>{{ pregnancy.actual_delivery_date|default:"-" }}</td>
+                <td>
+                    <a href="{% url 'pregnancy_update' pregnancy.pk %}" class="btn btn-sm btn-info">
+                        {% if language == 'mr' %}अपडेट{% else %}Update{% endif %}
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="empty-state">
+        <p>{% if language == 'mr' %}अद्याप कोणतीही गर्भधारणा नोंद नाही{% else %}No pregnancy records yet{% endif %}</p>
+        <a href="{% url 'pregnancy_create' %}" class="btn btn-primary">
+            {% if language == 'mr' %}पहिली नोंद जोडा{% else %}Add First Record{% endif %}
+        </a>
+    </div>
+    {% endif %}
+</div>
+
+<style>
+.badge-info { background: #d1ecf1; color: #0c5460; }
+</style>
+{% endblock %}

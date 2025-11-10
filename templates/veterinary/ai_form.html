@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h1>{% if language == 'mr' %}कृत्रिम रेतन नोंदवा{% else %}Record Artificial Insemination{% endif %}</h1>
+    </div>
+
+    <div class="form-container">
+        <form method="post" class="form">
+            {% csrf_token %}
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>{% if language == 'mr' %}गाय{% else %}Cow{% endif %} *</label>
+                    {{ form.cow }}
+                </div>
+                
+                <div class="form-group">
+                    <label>{% if language == 'mr' %}डॉक्टर{% else %}Doctor{% endif %} *</label>
+                    {{ form.doctor }}
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>{% if language == 'mr' %}AI तारीख{% else %}AI Date{% endif %} *</label>
+                    {{ form.ai_date }}
+                </div>
+                
+                <div class="form-group">
+                    <label>{% if language == 'mr' %}वेळ{% else %}Time{% endif %} *</label>
+                    {{ form.ai_time }}
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>{% if language == 'mr' %}बैलाची जात{% else %}Bull Breed{% endif %} *</label>
+                    {{ form.bull_breed }}
+                </div>
+                
+                <div class="form-group">
+                    <label>{% if language == 'mr' %}बैल ID{% else %}Bull ID{% endif %}</label>
+                    {{ form.bull_id }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>{% if language == 'mr' %}वीर्य स्रोत{% else %}Semen Source{% endif %}</label>
+                {{ form.semen_source }}
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>{% if language == 'mr' %}उष्णता शोध तारीख{% else %}Heat Detection Date{% endif %} *</label>
+                    {{ form.heat_detection_date }}
+                </div>
+                
+                <div class="form-group">
+                    <label>{% if language == 'mr' %}तंत्रज्ञाचे नाव{% else %}Technician Name{% endif %}</label>
+                    {{ form.technician_name }}
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>{% if language == 'mr' %}यश स्थिती{% else %}Success Status{% endif %} *</label>
+                    {{ form.success_status }}
+                </div>
+                
+                <div class="form-group">
+                    <label>{% if language == 'mr' %}अपेक्षित वासराची तारीख{% else %}Expected Calving Date{% endif %}</label>
+                    {{ form.expected_calving_date }}
+                    <small>{% if language == 'mr' %}साधारणतः AI नंतर 280 दिवस{% else %}Usually 280 days from AI{% endif %}</small>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>{% if language == 'mr' %}खर्च{% else %}Cost{% endif %}</label>
+                    {{ form.cost }}
+                </div>
+                
+                <div class="form-group">
+                    <label>{% if language == 'mr' %}टिपा{% else %}Notes{% endif %}</label>
+                    {{ form.notes }}
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">
+                    {% if language == 'mr' %}जतन करा{% else %}Save Record{% endif %}
+                </button>
+                <a href="{% url 'ai_list' %}" class="btn btn-secondary">
+                    {% if language == 'mr' %}रद्द करा{% else %}Cancel{% endif %}
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

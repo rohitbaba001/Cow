@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h1>{% if pregnancy %}{% if language == 'mr' %}गर्भधारणा अपडेट करा{% else %}Update Pregnancy{% endif %}{% else %}{% if language == 'mr' %}गर्भधारणा नोंदवा{% else %}Record Pregnancy{% endif %}{% endif %}</h1>
+    </div>
+
+    <div class="form-container">
+        <form method="post" class="form">
+            {% csrf_token %}
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>{% if language == 'mr' %}गाय{% else %}Cow{% endif %} *</label>
+                    {{ form.cow }}
+                </div>
+                
+                <div class="form-group">
+                    <label>{% if language == 'mr' %}AI नोंद{% else %}AI Record{% endif %}</label>
+                    {{ form.ai_record }}
+                    <small>{% if language == 'mr' %}जर लागू असेल तर{% else %}If applicable{% endif %}</small>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>{% if language == 'mr' %}पुष्टी तारीख{% else %}Confirmation Date{% endif %} *</label>
+                    {{ form.confirmation_date }}
+                </div>
+                
+                <div class="form-group">
+                    <label>{% if language == 'mr' %}पुष्टी केलेले डॉक्टर{% else %}Confirmed By{% endif %} *</label>
+                    {{ form.confirmed_by }}
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>{% if language == 'mr' %}गर्भधारणा स्थिती{% else %}Pregnancy Status{% endif %} *</label>
+                    {{ form.pregnancy_status }}
+                </div>
+                
+                <div class="form-group">
+                    <label>{% if language == 'mr' %}अपेक्षित प्रसूती तारीख{% else %}Expected Delivery Date{% endif %} *</label>
+                    {{ form.expected_delivery_date }}
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>{% if language == 'mr' %}वास्तविक प्रसूती तारीख{% else %}Actual Delivery Date{% endif %}</label>
+                    {{ form.actual_delivery_date }}
+                </div>
+                
+                <div class="form-group">
+                    <label>{% if language == 'mr' %}गर्भधारणा कालावधी (दिवस){% else %}Pregnancy Duration (days){% endif %}</label>
+                    {{ form.pregnancy_duration }}
+                </div>
+            </div>
+
+            <h3 style="margin-top: 2rem;">{% if language == 'mr' %}वासराची माहिती{% else %}Calf Information{% endif %}</h3>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>{% if language == 'mr' %}वासराचे लिंग{% else %}Calf Gender{% endif %}</label>
+                    {{ form.calf_gender }}
+                </div>
+                
+                <div class="form-group">
+                    <label>{% if language == 'mr' %}वासराचे वजन (kg){% else %}Calf Weight (kg){% endif %}</label>
+                    {{ form.calf_weight }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>{% if language == 'mr' %}प्रसूती प्रकार{% else %}Delivery Type{% endif %}</label>
+                {{ form.delivery_type }}
+                <small>{% if language == 'mr' %}उदा: सामान्य, सी-सेक्शन, सहाय्यित{% else %}e.g., Normal, C-Section, Assisted{% endif %}</small>
+            </div>
+
+            <div class="form-group">
+                <label>{% if language == 'mr' %}गुंतागुंत{% else %}Complications{% endif %}</label>
+                {{ form.complications }}
+            </div>
+
+            <div class="form-group">
+                <label>{% if language == 'mr' %}डॉक्टरांच्या टिपा{% else %}Doctor Notes{% endif %}</label>
+                {{ form.doctor_notes }}
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">
+                    {% if language == 'mr' %}जतन करा{% else %}Save{% endif %}
+                </button>
+                <a href="{% url 'pregnancy_list' %}" class="btn btn-secondary">
+                    {% if language == 'mr' %}रद्द करा{% else %}Cancel{% endif %}
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

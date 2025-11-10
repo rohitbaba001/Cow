@@ -1,0 +1,213 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if language == 'mr' %}गाय तपशील{% else %}Cow Details{% endif %}{% endblock %}
+
+{% block content %}
+<div class="detail-container">
+    <div class="detail-header">
+        <h1>{{ cow.cow_number }}{% if cow.cow_name %} - {{ cow.cow_name }}{% endif %}</h1>
+        <span class="badge badge-{% if cow.is_active %}success{% else %}secondary{% endif %}">
+            {% if cow.is_active %}{% if language == 'mr' %}सक्रिय{% else %}Active{% endif %}{% else %}{% if language == 'mr' %}निष्क्रिय{% else %}Inactive{% endif %}{% endif %}
+        </span>
+    </div>
+
+    <div class="detail-grid">
+        <div class="detail-section">
+            {% if cow.photo %}
+            <img src="{{ cow.photo.url }}" alt="{{ cow.cow_number }}" class="cow-detail-image">
+            {% else %}
+            <div class="cow-detail-placeholder">🐄</div>
+            {% endif %}
+            
+            <h3>{% if language == 'mr' %}मूलभूत माहिती{% else %}Basic Information{% endif %}</h3>
+            
+            <div class="detail-row">
+                <strong>{% if language == 'mr' %}जात:{% else %}Breed:{% endif %}</strong>
+                <p>{{ cow.breed }}</p>
+            </div>
+
+            <div class="detail-row">
+                <strong>{% if language == 'mr' %}वय:{% else %}Age:{% endif %}</strong>
+                <p>{{ cow.age }} {% if language == 'mr' %}वर्षे{% else %}years{% endif %}</p>
+            </div>
+
+            <div class="detail-row">
+                <strong>{% if language == 'mr' %}रंग:{% else %}Color:{% endif %}</strong>
+                <p>{{ cow.color }}</p>
+            </div>
+
+            <div class="detail-row">
+                <strong>{% if language == 'mr' %}ओळखीचे चिन्ह:{% else %}Identification Mark:{% endif %}</strong>
+                <p>{{ cow.identification_mark }}</p>
+            </div>
+
+            <div class="detail-row">
+                <strong>{% if language == 'mr' %}आरोग्य स्थिती:{% else %}Health Status:{% endif %}</strong>
+                <p>{{ cow.health_status }}</p>
+            </div>
+
+            {% if cow.last_checkup %}
+            <div class="detail-row">
+                <strong>{% if language == 'mr' %}शेवटची तपासणी:{% else %}Last Checkup:{% endif %}</strong>
+                <p>{{ cow.last_checkup|date:"d M Y" }}</p>
+            </div>
+            {% endif %}
+
+            {% if cow.notes %}
+            <div class="detail-row">
+                <strong>{% if language == 'mr' %}टिपा:{% else %}Notes:{% endif %}</strong>
+                <p>{{ cow.notes|linebreaks }}</p>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="detail-section">
+            <div class="section-header">
+                <h3>{% if language == 'mr' %}वैद्यकीय नोंदी{% else %}Medical Records{% endif %}</h3>
+                {% if user.user_type == 'admin' %}
+                <a href="{% url 'visit_create' cow.id %}" class="btn btn-sm btn-success">
+                    {% if language == 'mr' %}+ नवीन नोंद{% else %}+ New Record{% endif %}
+                </a>
+                {% endif %}
+            </div>
+
+            {% if veterinary_visits %}
+            <div class="medical-records">
+                {% for record in veterinary_visits %}
+                <div class="medical-record-card">
+                    <div class="record-date">{{ record.visit_date|date:"d M Y" }}</div>
+                    <div class="record-content">
+                        <p><strong>{% if language == 'mr' %}भेट प्रकार:{% else %}Visit Type:{% endif %}</strong> {{ record.get_visit_type_display }}</p>
+                        {% if record.diagnosis %}
+                        <p><strong>{% if language == 'mr' %}निदान:{% else %}Diagnosis:{% endif %}</strong> {{ record.diagnosis }}</p>
+                        {% endif %}
+                        {% if record.treatment_given %}
+                        <p><strong>{% if language == 'mr' %}उपचार:{% else %}Treatment:{% endif %}</strong> {{ record.treatment_given }}</p>
+                        {% endif %}
+                        <p><strong>{% if language == 'mr' %}पशुवैद्य:{% else %}Veterinarian:{% endif %}</strong> Dr. {{ record.doctor.name }}</p>
+                        {% if record.next_visit_date %}
+                        <p><strong>{% if language == 'mr' %}पुढील तपासणी:{% else %}Next Checkup:{% endif %}</strong> {{ record.next_visit_date|date:"d M Y" }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p class="text-muted">{% if language == 'mr' %}कोणत्याही वैद्यकीय नोंदी नाहीत{% else %}No medical records found{% endif %}</p>
+            {% endif %}
+        </div>
+
+        <div class="detail-section">
+            <!-- Veterinary Actions -->
+            <h3>{% if language == 'mr' %}पशुवैद्यकीय क्रिया{% else %}Veterinary Actions{% endif %}</h3>
+            <div class="action-buttons">
+                <a href="{% url 'visit_create' cow.id %}" class="btn btn-success">
+                    {% if language == 'mr' %}+ भेट नोंदवा{% else %}+ Record Visit{% endif %}
+                </a>
+                <a href="{% url 'ai_create_for_cow' cow.id %}" class="btn btn-info">
+                    💉 {% if language == 'mr' %}AI नोंद{% else %}AI Record{% endif %}
+                </a>
+                <a href="{% url 'pregnancy_create_for_cow' cow.id %}" class="btn btn-warning">
+                    🐄 {% if language == 'mr' %}गर्भधारणा{% else %}Pregnancy{% endif %}
+                </a>
+                <a href="{% url 'vaccination_create_for_cow' cow.id %}" class="btn btn-primary">
+                    💊 {% if language == 'mr' %}लसीकरण{% else %}Vaccination{% endif %}
+                </a>
+            </div>
+        </div>
+
+        <!-- Veterinary Visits -->
+        <div class="detail-section">
+            <h3>{% if language == 'mr' %}अलीकडील भेटी{% else %}Recent Visits{% endif %}</h3>
+            {% if veterinary_visits %}
+            <div class="records-list">
+                {% for visit in veterinary_visits|slice:":5" %}
+                <div class="record-item">
+                    <div class="record-info">
+                        <strong>{{ visit.visit_date }}</strong> - {{ visit.get_visit_type_display }}
+                        <p class="text-muted">Dr. {{ visit.doctor.name }}</p>
+                    </div>
+                    <a href="{% url 'visit_detail' visit.pk %}" class="btn btn-sm btn-info">
+                        {% if language == 'mr' %}पहा{% else %}View{% endif %}
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p class="text-muted">{% if language == 'mr' %}कोणतीही भेट नाही{% else %}No visits recorded{% endif %}</p>
+            {% endif %}
+        </div>
+
+        <!-- AI Records -->
+        {% if ai_records %}
+        <div class="detail-section">
+            <h3>{% if language == 'mr' %}कृत्रिम रेतन नोंदी{% else %}AI Records{% endif %}</h3>
+            <div class="records-list">
+                {% for ai in ai_records|slice:":3" %}
+                <div class="record-item">
+                    <div class="record-info">
+                        <strong>{{ ai.ai_date }}</strong> - {{ ai.bull_breed }}
+                        <p class="text-muted">Status: {{ ai.success_status }}</p>
+                    </div>
+                    <a href="{% url 'ai_detail' ai.pk %}" class="btn btn-sm btn-info">
+                        {% if language == 'mr' %}पहा{% else %}View{% endif %}
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Pregnancies -->
+        {% if pregnancies %}
+        <div class="detail-section">
+            <h3>{% if language == 'mr' %}गर्भधारणा{% else %}Pregnancies{% endif %}</h3>
+            <div class="records-list">
+                {% for pregnancy in pregnancies|slice:":3" %}
+                <div class="record-item">
+                    <div class="record-info">
+                        <strong>{{ pregnancy.get_pregnancy_status_display }}</strong>
+                        <p class="text-muted">Expected: {{ pregnancy.expected_delivery_date }}</p>
+                    </div>
+                    <a href="{% url 'pregnancy_update' pregnancy.pk %}" class="btn btn-sm btn-info">
+                        {% if language == 'mr' %}अपडेट{% else %}Update{% endif %}
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Vaccinations -->
+        {% if vaccinations %}
+        <div class="detail-section">
+            <h3>{% if language == 'mr' %}लसीकरण{% else %}Vaccinations{% endif %}</h3>
+            <div class="records-list">
+                {% for vaccination in vaccinations|slice:":3" %}
+                <div class="record-item">
+                    <div class="record-info">
+                        <strong>{{ vaccination.vaccine_name }}</strong>
+                        <p class="text-muted">{{ vaccination.vaccination_date }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="detail-actions">
+        {% if user.user_type == 'admin' %}
+        <a href="{% url 'cow_update' cow.id %}" class="btn btn-primary">
+            {% if language == 'mr' %}संपादित करा{% else %}Edit{% endif %}
+        </a>
+        <a href="{% url 'cow_delete' cow.id %}" class="btn btn-danger">
+            {% if language == 'mr' %}निष्क्रिय करा{% else %}Deactivate{% endif %}
+        </a>
+        {% endif %}
+        <a href="{% url 'cow_list' %}" class="btn btn-secondary">
+            {% if language == 'mr' %}परत{% else %}Back{% endif %}
+        </a>
+    </div>
+</div>
+{% endblock %}

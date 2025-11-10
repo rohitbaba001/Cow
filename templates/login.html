@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="{{ language|default:'en' }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if language == 'mr' %}लॉगिन - गाय आणि कामगार व्यवस्थापन{% else %}Login - Dairy Farm Management{% endif %}</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/login.css">
+</head>
+<body class="login-body-new">
+    <div class="login-container-center">
+        <div class="login-wide-card">
+            <!-- Left Side - Image -->
+            <div class="card-left-image">
+                <div class="image-overlay-layer"></div>
+                <div class="brand-content">
+                    <div class="brand-logo">
+                        <img src="https://images.unsplash.com/photo-1560493676-04071c5f467b?w=400&h=400&fit=crop&crop=faces" alt="Cow" class="cow-image">
+                    </div>
+                    <h1>{% if language == 'mr' %}गाय आणि कामगार व्यवस्थापन{% else %}Dairy Farm Management{% endif %}</h1>
+                    <p>{% if language == 'mr' %}महाराष्ट्र शेती व्यवस्थापन प्रणाली{% else %}Maharashtra Farm Management System{% endif %}</p>
+                </div>
+            </div>
+
+            <!-- Right Side - Login Form -->
+            <div class="card-right-form">
+                <div class="form-content">
+                    <!-- Language Selector -->
+                    <div class="language-toggle">
+                        <button class="lang-btn {% if language == 'en' %}active{% endif %}" onclick="changeLanguage('en')">English</button>
+                        <button class="lang-btn {% if language == 'mr' %}active{% endif %}" onclick="changeLanguage('mr')">मराठी</button>
+                    </div>
+
+                    <!-- Welcome Text -->
+                    <div class="welcome-section">
+                        <h2>{% if language == 'mr' %}स्वागत आहे!{% else %}Welcome Back!{% endif %}</h2>
+                        <p>{% if language == 'mr' %}कृपया लॉगिन करा{% else %}Please sign in to continue{% endif %}</p>
+                    </div>
+
+                    <!-- Messages -->
+                    {% if messages %}
+                    <div class="message-box">
+                        {% for message in messages %}
+                        <div class="message message-{{ message.tags }}">
+                            {{ message }}
+                            <button class="msg-close" onclick="this.parentElement.remove()">×</button>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <!-- Login Form -->
+                    <form method="post" class="login-form-box">
+                        {% csrf_token %}
+                        <input type="hidden" name="language" id="language" value="{{ language }}">
+                        
+                        <div class="form-field">
+                            <label>{% if language == 'mr' %}वापरकर्तानाव{% else %}Username{% endif %}</label>
+                            <div class="input-box">
+                                <span class="icon">👤</span>
+                                <input type="text" name="username" placeholder="{% if language == 'mr' %}वापरकर्तानाव{% else %}Enter username{% endif %}" required autofocus>
+                            </div>
+                        </div>
+
+                        <div class="form-field">
+                            <label>{% if language == 'mr' %}पासवर्ड{% else %}Password{% endif %}</label>
+                            <div class="input-box">
+                                <span class="icon">🔒</span>
+                                <input type="password" name="password" placeholder="{% if language == 'mr' %}पासवर्ड{% else %}Enter password{% endif %}" required>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="submit-btn">
+                            {% if language == 'mr' %}लॉगिन{% else %}Login{% endif %}
+                            <span class="btn-icon">→</span>
+                        </button>
+                    </form>
+
+                    <div class="footer-note">
+                        <p>{% if language == 'mr' %}© 2024 सर्व हक्क राखीव{% else %}© 2024 All Rights Reserved{% endif %}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function changeLanguage(lang) {
+            document.getElementById('language').value = lang;
+            window.location.href = '?lang=' + lang;
+        }
+    </script>
+</body>
+</html>

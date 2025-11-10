@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if language == 'mr' %}कार्य हटवा{% else %}Delete Task{% endif %}{% endblock %}
+
+{% block content %}
+<div class="confirm-delete">
+    <h1>{% if language == 'mr' %}कार्य हटवा{% else %}Delete Task{% endif %}</h1>
+    
+    <div class="alert alert-warning">
+        <p>{% if language == 'mr' %}तुम्हाला खात्री आहे की तुम्ही हे कार्य हटवू इच्छिता?{% else %}Are you sure you want to delete this task?{% endif %}</p>
+        <p><strong>{{ task.title }}</strong></p>
+        <p>{% if language == 'mr' %}नियुक्त केलेले:{% else %}Assigned to:{% endif %} {{ task.assigned_to.user.get_full_name }}</p>
+    </div>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">
+            {% if language == 'mr' %}होय, हटवा{% else %}Yes, Delete{% endif %}
+        </button>
+        <a href="{% url 'task_list' %}" class="btn btn-secondary">
+            {% if language == 'mr' %}रद्द करा{% else %}Cancel{% endif %}
+        </a>
+    </form>
+</div>
+{% endblock %}

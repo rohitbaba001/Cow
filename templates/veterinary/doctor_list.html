@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h1>{% if language == 'mr' %}डॉक्टर यादी{% else %}Doctors List{% endif %}</h1>
+        <div class="header-actions">
+            {% if user.user_type == 'admin' %}
+            <a href="{% url 'doctor_create' %}" class="btn btn-primary">
+                {% if language == 'mr' %}+ नवीन डॉक्टर जोडा{% else %}+ Add Doctor{% endif %}
+            </a>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if doctors %}
+    <div class="card-grid">
+        {% for doctor in doctors %}
+        <div class="card">
+            <div class="card-header">
+                <h3>👨‍⚕️ Dr. {{ doctor.name }}</h3>
+            </div>
+            <div class="card-body">
+                <p><strong>{% if language == 'mr' %}पात्रता:{% else %}Qualification:{% endif %}</strong> {{ doctor.qualification }}</p>
+                {% if doctor.specialization %}
+                <p><strong>{% if language == 'mr' %}विशेषज्ञता:{% else %}Specialization:{% endif %}</strong> {{ doctor.specialization }}</p>
+                {% endif %}
+                <p><strong>{% if language == 'mr' %}परवाना क्रमांक:{% else %}License:{% endif %}</strong> {{ doctor.license_number }}</p>
+                <p><strong>{% if language == 'mr' %}फोन:{% else %}Phone:{% endif %}</strong> {{ doctor.phone_number }}</p>
+                {% if doctor.email %}
+                <p><strong>{% if language == 'mr' %}ईमेल:{% else %}Email:{% endif %}</strong> {{ doctor.email }}</p>
+                {% endif %}
+                {% if doctor.clinic_name %}
+                <p><strong>{% if language == 'mr' %}क्लिनिक:{% else %}Clinic:{% endif %}</strong> {{ doctor.clinic_name }}</p>
+                {% endif %}
+            </div>
+            <div class="card-footer">
+                {% if user.user_type == 'admin' %}
+                <a href="{% url 'doctor_update' doctor.pk %}" class="btn btn-sm btn-info">
+                    {% if language == 'mr' %}संपादित करा{% else %}Edit{% endif %}
+                </a>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <p>{% if language == 'mr' %}अद्याप कोणतेही डॉक्टर जोडलेले नाहीत{% else %}No doctors added yet{% endif %}</p>
+        {% if user.user_type == 'admin' %}
+        <a href="{% url 'doctor_create' %}" class="btn btn-primary">
+            {% if language == 'mr' %}पहिला डॉक्टर जोडा{% else %}Add First Doctor{% endif %}
+        </a>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+
+<style>
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.card-header {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: white;
+    padding: 1rem;
+}
+
+.card-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+}
+
+.card-body {
+    padding: 1rem;
+}
+
+.card-body p {
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+}
+
+.card-footer {
+    padding: 1rem;
+    background: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 3rem;
+    background: white;
+    border-radius: 8px;
+    margin-top: 2rem;
+}
+</style>
+{% endblock %}

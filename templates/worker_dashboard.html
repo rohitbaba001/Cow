@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if language == 'mr' %}कामगार डॅशबोर्ड{% else %}Worker Dashboard{% endif %}{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+    <h1>{% if language == 'mr' %}माझे डॅशबोर्ड{% else %}My Dashboard{% endif %}</h1>
+    
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon">⏳</div>
+            <div class="stat-info">
+                <h3>{{ pending_tasks }}</h3>
+                <p>{% if language == 'mr' %}प्रलंबित{% else %}Pending{% endif %}</p>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">🔄</div>
+            <div class="stat-info">
+                <h3>{{ in_progress_tasks }}</h3>
+                <p>{% if language == 'mr' %}प्रगतीपथावर{% else %}In Progress{% endif %}</p>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">✅</div>
+            <div class="stat-info">
+                <h3>{{ completed_tasks }}</h3>
+                <p>{% if language == 'mr' %}पूर्ण झाले{% else %}Completed{% endif %}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-section">
+        <h2>{% if language == 'mr' %}माझी कार्ये{% else %}My Tasks{% endif %}</h2>
+        <div class="table-responsive">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>{% if language == 'mr' %}शीर्षक{% else %}Title{% endif %}</th>
+                        <th>{% if language == 'mr' %}वर्णन{% else %}Description{% endif %}</th>
+                        <th>{% if language == 'mr' %}मुदत{% else %}Deadline{% endif %}</th>
+                        <th>{% if language == 'mr' %}स्थिती{% else %}Status{% endif %}</th>
+                        <th>{% if language == 'mr' %}कृती{% else %}Actions{% endif %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for task in my_tasks %}
+                    <tr class="{% if task.is_overdue %}overdue-row{% endif %}">
+                        <td><strong>{{ task.title }}</strong></td>
+                        <td>{{ task.description|truncatewords:10 }}</td>
+                        <td>{{ task.deadline|date:"d M Y, h:i A" }}</td>
+                        <td><span class="badge badge-{{ task.status }}">{{ task.get_status_display }}</span></td>
+                        <td>
+                            <a href="{% url 'task_detail' task.id %}" class="btn btn-sm btn-info">
+                                {% if language == 'mr' %}पहा{% else %}View{% endif %}
+                            </a>
+                            <a href="{% url 'task_update' task.id %}" class="btn btn-sm btn-primary">
+                                {% if language == 'mr' %}अद्यतनित करा{% else %}Update{% endif %}
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center">
+                            {% if language == 'mr' %}कोणतीही कार्ये नियुक्त केलेली नाहीत{% else %}No tasks assigned{% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

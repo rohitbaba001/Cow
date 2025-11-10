@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h1>{% if language == 'mr' %}भेट तपशील{% else %}Visit Details{% endif %}</h1>
+    </div>
+
+    <div class="detail-container">
+        <div class="detail-grid">
+            <div class="detail-section">
+                <h3>{% if language == 'mr' %}मूलभूत माहिती{% else %}Basic Information{% endif %}</h3>
+                <p><strong>{% if language == 'mr' %}गाय:{% else %}Cow:{% endif %}</strong> {{ visit.cow.cow_number }} - {{ visit.cow.cow_name }}</p>
+                <p><strong>{% if language == 'mr' %}डॉक्टर:{% else %}Doctor:{% endif %}</strong> Dr. {{ visit.doctor.name }}</p>
+                <p><strong>{% if language == 'mr' %}तारीख:{% else %}Date:{% endif %}</strong> {{ visit.visit_date }} {{ visit.visit_time }}</p>
+                <p><strong>{% if language == 'mr' %}प्रकार:{% else %}Type:{% endif %}</strong> {{ visit.get_visit_type_display }}</p>
+                {% if visit.visit_cost %}
+                <p><strong>{% if language == 'mr' %}खर्च:{% else %}Cost:{% endif %}</strong> ₹{{ visit.visit_cost }}</p>
+                {% endif %}
+            </div>
+
+            <div class="detail-section">
+                <h3>{% if language == 'mr' %}वैद्यकीय माहिती{% else %}Medical Information{% endif %}</h3>
+                <p><strong>{% if language == 'mr' %}कारण:{% else %}Reason:{% endif %}</strong> {{ visit.reason_for_visit }}</p>
+                {% if visit.symptoms %}
+                <p><strong>{% if language == 'mr' %}लक्षणे:{% else %}Symptoms:{% endif %}</strong> {{ visit.symptoms }}</p>
+                {% endif %}
+                {% if visit.diagnosis %}
+                <p><strong>{% if language == 'mr' %}निदान:{% else %}Diagnosis:{% endif %}</strong> {{ visit.diagnosis }}</p>
+                {% endif %}
+                {% if visit.treatment_given %}
+                <p><strong>{% if language == 'mr' %}उपचार:{% else %}Treatment:{% endif %}</strong> {{ visit.treatment_given }}</p>
+                {% endif %}
+            </div>
+        </div>
+
+        {% if visit.doctor_instructions %}
+        <div class="detail-section highlight">
+            <h3>{% if language == 'mr' %}डॉक्टरांच्या सूचना{% else %}Doctor Instructions{% endif %}</h3>
+            <p>{{ visit.doctor_instructions }}</p>
+        </div>
+        {% endif %}
+
+        <div class="detail-section">
+            <h3>{% if language == 'mr' %}औषधे{% else %}Medicines{% endif %}</h3>
+            {% if medicines %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>{% if language == 'mr' %}औषधाचे नाव{% else %}Medicine{% endif %}</th>
+                        <th>{% if language == 'mr' %}डोस{% else %}Dosage{% endif %}</th>
+                        <th>{% if language == 'mr' %}वारंवारता{% else %}Frequency{% endif %}</th>
+                        <th>{% if language == 'mr' %}कालावधी{% else %}Duration{% endif %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for medicine in medicines %}
+                    <tr>
+                        <td>{{ medicine.medicine_name }}</td>
+                        <td>{{ medicine.dosage }}</td>
+                        <td>{{ medicine.frequency }}</td>
+                        <td>{{ medicine.duration }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p class="text-muted">{% if language == 'mr' %}कोणतीही औषधे नोंदवलेली नाहीत{% else %}No medicines recorded{% endif %}</p>
+            {% endif %}
+            <a href="{% url 'medicine_create' visit.pk %}" class="btn btn-primary">
+                {% if language == 'mr' %}+ औषध जोडा{% else %}+ Add Medicine{% endif %}
+            </a>
+        </div>
+
+        {% if visit.next_visit_date %}
+        <div class="detail-section">
+            <p><strong>{% if language == 'mr' %}पुढील भेट:{% else %}Next Visit:{% endif %}</strong> {{ visit.next_visit_date }}</p>
+        </div>
+        {% endif %}
+
+        <div class="detail-actions">
+            <a href="{% url 'cow_detail' visit.cow.pk %}" class="btn btn-secondary">
+                {% if language == 'mr' %}परत{% else %}Back to Cow{% endif %}
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+.highlight {
+    background: #fff3cd;
+    border-left: 4px solid #ffc107;
+    padding: 1rem;
+}
+</style>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if language == 'mr' %}कार्य स्थिती अद्यतनित करा{% else %}Update Task Status{% endif %}{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h1>{% if language == 'mr' %}कार्य स्थिती अद्यतनित करा{% else %}Update Task Status{% endif %}</h1>
+    
+    <div class="task-info-box">
+        <h3>{{ task.title }}</h3>
+        <p>{{ task.description }}</p>
+        <p><strong>{% if language == 'mr' %}मुदत:{% else %}Deadline:{% endif %}</strong> {{ task.deadline|date:"d M Y, h:i A" }}</p>
+    </div>
+
+    <form method="post" class="form-horizontal">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="id_status">{% if language == 'mr' %}स्थिती{% else %}Status{% endif %} *</label>
+            {{ form.status }}
+            {% if form.status.errors %}
+            <span class="error">{{ form.status.errors }}</span>
+            {% endif %}
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+                {% if language == 'mr' %}स्थिती अद्यतनित करा{% else %}Update Status{% endif %}
+            </button>
+            <a href="{% url 'task_detail' task.id %}" class="btn btn-secondary">
+                {% if language == 'mr' %}रद्द करा{% else %}Cancel{% endif %}
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}

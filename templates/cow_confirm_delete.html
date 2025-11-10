@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if language == 'mr' %}गाय निष्क्रिय करा{% else %}Deactivate Cow{% endif %}{% endblock %}
+
+{% block content %}
+<div class="confirm-delete">
+    <h1>{% if language == 'mr' %}गाय निष्क्रिय करा{% else %}Deactivate Cow{% endif %}</h1>
+    
+    <div class="alert alert-warning">
+        <p>{% if language == 'mr' %}तुम्हाला खात्री आहे की तुम्ही ही गाय निष्क्रिय करू इच्छिता?{% else %}Are you sure you want to deactivate this cow?{% endif %}</p>
+        <p><strong>{{ cow.cow_number }}{% if cow.cow_name %} - {{ cow.cow_name }}{% endif %}</strong></p>
+    </div>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">
+            {% if language == 'mr' %}होय, निष्क्रिय करा{% else %}Yes, Deactivate{% endif %}
+        </button>
+        <a href="{% url 'cow_list' %}" class="btn btn-secondary">
+            {% if language == 'mr' %}रद्द करा{% else %}Cancel{% endif %}
+        </a>
+    </form>
+</div>
+{% endblock %}
