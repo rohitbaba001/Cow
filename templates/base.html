@@ -11,10 +11,17 @@
     {% if user.is_authenticated %}
     <nav class="navbar">
         <div class="nav-container">
-            <div class="nav-brand">
-                <h2>{% if language == 'mr' %}🐄 गाय आणि कामगार व्यवस्थापन{% else %}🐄 Dairy Farm Management{% endif %}</h2>
+            <div class="nav-header">
+                <div class="nav-brand">
+                    <h2>{% if language == 'mr' %}🐄 गाय व्यवस्थापन{% else %}🐄 CowConnect{% endif %}</h2>
+                </div>
+                <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                    <span class="hamburger"></span>
+                    <span class="hamburger"></span>
+                    <span class="hamburger"></span>
+                </button>
             </div>
-            <ul class="nav-menu">
+            <ul class="nav-menu" id="navMenu">
                 <li><a href="{% url 'dashboard' %}">{% if language == 'mr' %}डॅशबोर्ड{% else %}Dashboard{% endif %}</a></li>
                 
                 {% if user.user_type == 'admin' %}
