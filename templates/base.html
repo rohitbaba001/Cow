@@ -1,10 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="{{ language|default:'en' }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% if language == 'mr' %}गाय आणि कामगार व्यवस्थापन{% else %}Dairy Farm Management System{% endif %}{% endblock %}</title>
-    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     {% block extra_css %}{% endblock %}
 </head>
 <body>
@@ -61,7 +62,7 @@
         {% block content %}{% endblock %}
     </div>
 
-    <script src="/static/js/script.js"></script>
+    <script src="{% static 'js/script.js' %}"></script>
     {% block extra_js %}{% endblock %}
 </body>
 </html>
