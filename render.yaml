@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: cowconnect
+    runtime: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn farm_management.wsgi:application"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.5
+      - key: DEBUG
+        value: False
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: cowconnect-db
+          property: connectionString
+
+databases:
+  - name: cowconnect-db
+    databaseName: cowconnect
+    user: cowconnect_user
